@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7939038c-52fb-4c04-93f0-15299385798e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/jquery.htmlClean.js" afterPath="$PROJECT_DIR$/js/jquery.htmlClean.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/layoutit.css" afterPath="$PROJECT_DIR$/css/layoutit.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/scripts.js" afterPath="$PROJECT_DIR$/js/scripts.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/bootstrap.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/jquery-ui-1.10.3.custom.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/jquery.gridster.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/jquery.gridster.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/mta-gridster-cols.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/mta-ui.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/ui.jqgrid.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/underscore-min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="layoutit.iws" />
@@ -42,8 +46,8 @@
       <file leaf-file-name="mta-gridster-cols.css" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/css/mta-gridster-cols.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2984914" vertical-offset="731" max-vertical-offset="1659">
-              <caret line="48" column="19" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.18534483" vertical-offset="731" max-vertical-offset="1659">
+              <caret line="43" column="31" selection-start-line="43" selection-start-column="31" selection-end-line="43" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -289,12 +293,18 @@
       <created>1429610371484</created>
       <updated>1429610371484</updated>
     </task>
+    <task id="LOCAL-00001" summary="mta-grid version 1">
+      <created>1436512842902</created>
+      <updated>1436512842902</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="1436" y="-4" width="1928" height="1088" extended-state="6" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -352,6 +362,8 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="mta-grid version 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="mta-grid version 1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -733,8 +745,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/css/mta-gridster-cols.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2984914" vertical-offset="731" max-vertical-offset="1659">
-          <caret line="48" column="19" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.18534483" vertical-offset="731" max-vertical-offset="1659">
+          <caret line="43" column="31" selection-start-line="43" selection-start-column="31" selection-end-line="43" selection-end-column="31" />
           <folding />
         </state>
       </provider>
