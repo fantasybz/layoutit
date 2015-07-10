@@ -32,9 +32,15 @@ Use and distibution http://www.opensource.org/licenses/bsd-license.php
 
     // clean the passed html
     $.htmlClean = function (html, options) {
+
+/*
+        html = "<mta-grid objectid='-1' cols='['StpId','ReqId','SddId','StpDescription','StpRemark']' tenantid='1'></mta-grid>";
+*/
+
         options = $.extend({}, $.htmlClean.defaults, options);
 
-        var tagsRE = /(<(\/)?(\w+:)?([\w]+)([^>]*)>)|<!--(.*?--)>/gi;
+        var tagsRE = /(<(\/)?(\w+:)?([\w\-]+)([^>]*)>)|<!--(.*?--)>/gi;
+        var tagsRE2 = /(<(\/)?(\w+:)?([\w]+)([^>]*)>)|<!--(.*?--)>/gi;
         var attrsRE = /([\w\-]+)=(".*?"|'.*?'|[^\s>]*)/gi;
 
         var tagMatch;
