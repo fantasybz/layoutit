@@ -2,9 +2,11 @@
  * Created by fantasybz on 2015/5/19.
  */
 
+var MTAServiceURL = "http://192.168.1.109:8080/MTAServiceResful/";
+
 function getTenantUserItems() {
 
-    var userlistUrl = 'http://localhost:8080/MTAServiceResful/ulist';
+    var userlistUrl = MTAServiceURL+ 'ulist';
 
 
     $.ajax({
@@ -51,7 +53,7 @@ function getTenantUserItems() {
 function loadTenantUserCustomObjs(userid) {
 
     $("#CustObjects").empty();
-    var userUrl = 'http://localhost:8080/MTAServiceResful/u?uid=' + $("#userId").val();
+    var userUrl = MTAServiceURL+'u?uid=' + $("#userId").val();
 
     $.when(jQuery.ajax({
         type: "GET",
@@ -81,7 +83,7 @@ function loadTenantUserCustomObjs(userid) {
             }
         }
     })).done(function (a1) {
-        var olistUrl = 'http://localhost:8080/MTAServiceResful/comdlist?tid=' + $("#tenantId").val();
+        var olistUrl = MTAServiceURL+'comdlist?tid=' + $("#tenantId").val();
         var handleCo = function () {
             jQuery.ajax({
                 type: "GET",
