@@ -43,7 +43,9 @@
     <script type="text/javascript" src="js/underscore-min.js"></script>
     <script type="text/javascript" src="js/scripts.js"></script>
     <script type="text/javascript" src="js/jquery.gridster.js"></script>
+    <script src="js/encoder.js"></script>
     <script type="text/javascript" src="js/mta-ui.js"></script>
+    
 </head>
 <body style="min-height: 660px; cursor: auto;" class="edit">
     <form id="form1" runat="server">
@@ -108,6 +110,11 @@
                                     <button class="btn btn-primary" href="#redo" id="redo">
                                         <i
                                             class="icon-arrow-right icon-white"></i>重做
+                                    </button>
+                                </div>
+                                <div class="btn-group">
+                                     <button class="btn btn-success" href="#saveToMTA" id="saveToMTA">
+                                        <i class="icon-retweet icon-white"></i>儲存版型至MTA Studio
                                     </button>
                                 </div>
                             </li>
@@ -1494,6 +1501,7 @@
         <asp:HiddenField ID="pageName" runat="server" Value="" />
         <asp:HiddenField ID="pageFilePath" runat="server" Value="" />
         <asp:HiddenField ID="pageContent" runat="server" Value="" />
+        <asp:HiddenField ID="layoutitConent" runat="server" Value="" />
 
 
         <div id="CustObjects"></div>

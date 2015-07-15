@@ -273,9 +273,9 @@ function downloadLayoutSrc() {
     }
     formatSrc = $.htmlClean($("#download-layout").html(), {
         format: true,
-/*
-        allowedTags:["p","span","div","html","body","title","meta","link","script","option","select","input","table","mta-grid"],
-*/
+        /*
+                allowedTags:["p","span","div","html","body","title","meta","link","script","option","select","input","table","mta-grid"],
+        */
         allowedAttributes: [
             ["id"],
             ["class"],
@@ -346,12 +346,124 @@ function downloadLayoutSrc() {
 
     prehtml += '                            <div ng-controller="Controller">';
 
-    var posthtml = "</div></div></body></html>";
+    var posthtml = "</div></body></html>";
 
     $("#download-layout").html(formatSrc);
     $("#downloadModal textarea").empty();
     $("#downloadModal textarea").val(prehtml+formatSrc+posthtml)
 }
+
+function getPhysicalFileContent() {
+    var e = "";
+    $("#download-layout").children().html($(".demo").html());
+    var t = $("#download-layout").children();
+    t.find(".preview, .configuration, .drag, .remove").remove();
+    t.find(".lyrow").addClass("removeClean");
+    t.find(".box-element").addClass("removeClean");
+    t.find(".lyrow .lyrow .lyrow .lyrow .lyrow .removeClean").each(function () {
+        cleanHtml(this)
+    });
+    t.find(".lyrow .lyrow .lyrow .lyrow .removeClean").each(function () {
+        cleanHtml(this)
+    });
+    t.find(".lyrow .lyrow .lyrow .removeClean").each(function () {
+        cleanHtml(this)
+    });
+    t.find(".lyrow .lyrow .removeClean").each(function () {
+        cleanHtml(this)
+    });
+    t.find(".lyrow .removeClean").each(function () {
+        cleanHtml(this)
+    });
+    t.find(".removeClean").each(function () {
+        cleanHtml(this)
+    });
+    t.find(".removeClean").remove();
+    $("#download-layout .column").removeClass("ui-sortable");
+    $("#download-layout .row-fluid").removeClass("clearfix").children().removeClass("column");
+    if ($("#download-layout .container").length > 0) {
+        changeStructure("row-fluid", "row")
+    }
+    formatSrc = $.htmlClean($("#download-layout").html(), {
+        format: true,
+        /*
+                allowedTags:["p","span","div","html","body","title","meta","link","script","option","select","input","table","mta-grid"],
+        */
+        allowedAttributes: [
+            ["id"],
+            ["class"],
+            ["data-toggle"],
+            ["data-target"],
+            ["data-parent"],
+            ["role"],
+            ["data-dismiss"],
+            ["aria-labelledby"],
+            ["aria-hidden"],
+            ["data-slide-to"],
+            ["data-slide"],
+            ["objectid"],
+            ["cols"],
+            ["tenantid"],
+            ["mta"],
+            ["mta-grid"],
+            ["grid"]
+
+        ]
+    });
+
+    var prehtml = '<!DOCTYPE html>';
+    prehtml += '<html>';
+    prehtml += '<head lang="en">';
+
+    prehtml += '    <meta charset="UTF-8">';
+    prehtml += '    <meta name="viewport" content="width=device-width, initial-scale=1.0">';
+    prehtml += '    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">';
+    prehtml += '            <title></title>';
+
+    prehtml += '        <!-- Le styles -->';
+    prehtml += '        <link href="../css/views/bootstrap-combined.min.css" rel="stylesheet">';
+    prehtml += '            <link href="../css/views/jquery-ui-1.10.3.custom.css" rel="stylesheet">';
+    prehtml += '                <link href="../assets/jqGrid/css/ui.jqgrid.css" rel="stylesheet">';
+    prehtml += '                    <link href="../css/views/view-mta.css" rel="stylesheet">';
+
+
+    prehtml += '                        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->';
+    prehtml += '                        <!--[if lt IE 9]>';
+    prehtml += '                        <script src="../js/views/html5shiv.js"></script>';
+    prehtml += '                        <![endif]-->';
+
+    prehtml += '                        <!-- Fav and touch icons -->';
+    prehtml += '                        <link rel="shortcut icon" href="img/favicon.png">';
+
+    prehtml += '                            <script src="../js/angular.min.js"></script>';
+    prehtml += '                            <script type="text/javascript" src="../js/views/jquery-2.0.0.min.js"></script>';
+    prehtml += '                            <!--[if lt IE 9]>';
+    prehtml += '                            <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>';
+    prehtml += '                            <![endif]-->';
+    prehtml += '                            <script type="text/javascript" src="../js/views/bootstrap.min.js"></script>';
+    prehtml += '                            <script type="text/javascript" src="../js/views/jquery-ui.js"></script>';
+    prehtml += '                            <script type="text/javascript" src="../js/views/jquery.ui.touch-punch.min.js"></script>';
+    prehtml += '                            <script type="text/javascript" src="../js/views/jquery.htmlClean.js"></script>';
+    prehtml += '                            <script src="../assets/jqGrid/js/i18n/grid.locale-en.js"></script>';
+    prehtml += '                            <script src="../assets/jqGrid/js/jquery.jqGrid.min.js"></script>';
+    prehtml += '                            <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>';
+    prehtml += '                            <script type="text/javascript" src="../ckeditor/config.js"></script>';
+    prehtml += '                            <script src="../js/underscore.js"></script>';
+    prehtml += '                            <script src="../js/encoder.js"></script>';
+    prehtml += '                            <script src="../js/ajaxq.js"></script>';
+    prehtml += '                            <script src="../js/mta-ui-grid.js"></script>';
+
+    prehtml += '                        </head>';
+    prehtml += '                        <body ng-app="MTAUIDirective">';
+
+
+    prehtml += '                            <div ng-controller="Controller">';
+
+    var posthtml = "</div></body></html>";
+
+    return prehtml+formatSrc+posthtml
+}
+
 
 var currentDocument = null;
 var timerSave = 1000;
@@ -363,6 +475,18 @@ $(window).resize(function () {
     $("body").css("min-height", $(window).height() - 90);
     $(".demo").css("min-height", $(window).height() - 160)
 });
+
+
+function restoreDataFromMTAStudio(){
+    clearDemo();
+    if (supportstorage()) {
+        layouthistory = JSON.parse(localStorage.getItem("layoutdata"));
+        if (!layouthistory) return false;
+        window.demoHtml = layouthistory.list[layouthistory.count - 1];
+        if (window.demoHtml) $(".demo").html($("#pageContent").val());
+
+    }
+}
 
 function restoreData() {
     if (supportstorage()) {
@@ -399,7 +523,7 @@ $(document).ready(function () {
 
 
     CKEDITOR.disableAutoInline = true;
-    restoreData();
+    //restoreData();
     var contenthandle = CKEDITOR.replace('contenteditor', {
         language: 'zh-cn',
         contentsCss: ['css/bootstrap-combined.min.css'],
@@ -533,6 +657,34 @@ $(document).ready(function () {
         if (redoLayout()) initContainer();
         stopsave--;
     });
+    $('#saveToMTA').click(function(){
+
+        var param ={
+            pageId: $("#userId").val(),
+            fileContent : Encoder.htmlDecode(getPhysicalFileContent()),
+            layoutitContent :Encoder.htmlDecode($(".demo").html())
+        };
+
+        $.ajax({
+            crossDomain: true,
+            contentType: "application/json; charset=utf-8",
+            url: "http://192.168.1.109/MTAUIStudio/webservice/TenantsPageWebService.asmx/updateTenantsPageFileContentRemote",
+            data: JSON.stringify(param),
+            dataType: "jsonp",
+            success: onDataReceived
+        });
+
+       
+    });
+
+    function onDataReceived(data)
+    {
+        alert("Data received");
+        // Do your client side work here.
+        // 'data' is an object containing the data sent from the web service 
+        // Put a JS breakpoint on this line to explore the data object
+    }
+
     removeElm();
     gridSystemGenerator();
     setInterval(function () {

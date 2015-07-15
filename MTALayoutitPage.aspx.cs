@@ -26,6 +26,7 @@ public partial class MTALayoutitPage : System.Web.UI.Page
                     this.pageName.Value = tp.PageName;
                     this.pageFilePath.Value = (tp.PhysicalFileName == null ? "" : tp.PhysicalFileName);
                     this.pageContent.Value = (tp.FileContent == null ? "" : checkFileContent(tp.FileContent));
+                    this.layoutitConent.Value = (tp.LayoutitContent == null ? "" : checkFileContent(tp.LayoutitContent));
                 }
             }
         }
