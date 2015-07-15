@@ -16,14 +16,11 @@ function getTenantUserItems() {
         dataType: 'jsonp',
         jsonpCallback: 'processData',
         success: function (data) {
-            $("#tenant-user-select").empty();
-
+           
+            $("#tenant-user-ul").empty();
             $.each(data, function (index, item) {
-                $("#tenant-user-select").append('<option value = "' + item.id + '">' + item.tenantName + '</option>');
-
+                $("#tenant-user-ul").append('<li tenantName="' + item.tenantName + ' tenantName="'+item.id+'"></li>');
             });
-
-            $("#userId").val($("#tenant-user-select").val());
 
             loadTenantUserCustomObjs($("#userId").val())
 
@@ -63,7 +60,8 @@ function loadTenantUserCustomObjs(userid) {
         jsonpCallback: 'processData',
         success: function (data) {
             $("#tenantId").val(data.tenantId);
-            $("#hTname").text(data.tenantName);
+            $("#hTenant").text(data.tenantName);
+            $("#hPage").text($("#pageName").val() + "(" + $("#pageFilePath").val() + ")");
         },
         error: function (jqXHR, exception) {
             if (jqXHR.status === 0) {
@@ -133,7 +131,7 @@ function handleMTAUIComponents() {
 
 function handleMTAGrid() {
     $(".MTA-GRID[state='init']").each(function () {
-        $(this).find(".mta-userinfo").text($("#hTname").text());
+        $(this).find(".mta-userinfo").text($("#hTenant").text());
         var mtagridtag = $(this).find("mta-grid");
 
         $(mtagridtag).attr("objectid", -1)

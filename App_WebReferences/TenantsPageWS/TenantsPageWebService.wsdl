@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="getTenantsPageJSONByPageId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pageId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getTenantsPageJSONByPageIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getTenantsPageJSONByPageIdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getTenantsPageByPageId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pageId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getTenantsPageByPageIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getTenantsPageByPageIdResult" type="tns:TenantsPage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TenantsPage">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PageId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PageName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TenantId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PageType" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhysicalFileName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FileContent" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreateDateTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="UpdateDateTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreateUserID" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="updateTenantsPageFileContent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pageId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileContent" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateTenantsPageFileContentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="updateTenantsPageFileContentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="getTenantsPageJSONByPageIdSoapIn">
+    <wsdl:part name="parameters" element="tns:getTenantsPageJSONByPageId" />
+  </wsdl:message>
+  <wsdl:message name="getTenantsPageJSONByPageIdSoapOut">
+    <wsdl:part name="parameters" element="tns:getTenantsPageJSONByPageIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="getTenantsPageByPageIdSoapIn">
+    <wsdl:part name="parameters" element="tns:getTenantsPageByPageId" />
+  </wsdl:message>
+  <wsdl:message name="getTenantsPageByPageIdSoapOut">
+    <wsdl:part name="parameters" element="tns:getTenantsPageByPageIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateTenantsPageFileContentSoapIn">
+    <wsdl:part name="parameters" element="tns:updateTenantsPageFileContent" />
+  </wsdl:message>
+  <wsdl:message name="updateTenantsPageFileContentSoapOut">
+    <wsdl:part name="parameters" element="tns:updateTenantsPageFileContentResponse" />
+  </wsdl:message>
+  <wsdl:portType name="TenantsPageWebServiceSoap">
+    <wsdl:operation name="getTenantsPageJSONByPageId">
+      <wsdl:input message="tns:getTenantsPageJSONByPageIdSoapIn" />
+      <wsdl:output message="tns:getTenantsPageJSONByPageIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getTenantsPageByPageId">
+      <wsdl:input message="tns:getTenantsPageByPageIdSoapIn" />
+      <wsdl:output message="tns:getTenantsPageByPageIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="updateTenantsPageFileContent">
+      <wsdl:input message="tns:updateTenantsPageFileContentSoapIn" />
+      <wsdl:output message="tns:updateTenantsPageFileContentSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TenantsPageWebServiceSoap" type="tns:TenantsPageWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getTenantsPageJSONByPageId">
+      <soap:operation soapAction="http://tempuri.org/getTenantsPageJSONByPageId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTenantsPageByPageId">
+      <soap:operation soapAction="http://tempuri.org/getTenantsPageByPageId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateTenantsPageFileContent">
+      <soap:operation soapAction="http://tempuri.org/updateTenantsPageFileContent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TenantsPageWebServiceSoap12" type="tns:TenantsPageWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getTenantsPageJSONByPageId">
+      <soap12:operation soapAction="http://tempuri.org/getTenantsPageJSONByPageId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTenantsPageByPageId">
+      <soap12:operation soapAction="http://tempuri.org/getTenantsPageByPageId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateTenantsPageFileContent">
+      <soap12:operation soapAction="http://tempuri.org/updateTenantsPageFileContent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TenantsPageWebService">
+    <wsdl:port name="TenantsPageWebServiceSoap" binding="tns:TenantsPageWebServiceSoap">
+      <soap:address location="http://192.168.1.109/MTAUIStudio/webservice/TenantsPageWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TenantsPageWebServiceSoap12" binding="tns:TenantsPageWebServiceSoap12">
+      <soap12:address location="http://192.168.1.109/MTAUIStudio/webservice/TenantsPageWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -394,10 +394,7 @@ $(document).ready(function () {
     <!--MTA UI-->
     getTenantUserItems();
 
-    $("#tenant-user-select").on('change', function () {
-        $("#userId").val($(this).val());
-        loadTenantUserCustomObjs($("#userId").val());
-    });
+   
     <!--MTA UI-->
 
 
