@@ -113,9 +113,9 @@
                                     </button>
                                 </div>
                                 <div class="btn-group">
-                                     <button class="btn btn-success" href="#saveToMTA" id="saveToMTA">
+                                     <div class="btn btn-success"  id="saveToMTA">
                                         <i class="icon-retweet icon-white"></i>儲存版型至MTA Studio
-                                    </button>
+                                    </div>
                                 </div>
                             </li>
                         </ul>
