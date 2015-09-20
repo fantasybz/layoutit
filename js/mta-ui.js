@@ -2,11 +2,11 @@
  * Created by fantasybz on 2015/5/19.
  */
 
-var MTAServiceURL = "http://192.168.1.109:8080/MTAServiceResful/";
+var MTAServiceURL = "http://192.168.1.103:8080/MTAServiceResful/";
 
 function getTenantUserItems() {
 
-    var userlistUrl = MTAServiceURL+ 'ulist';
+    var userlistUrl = MTAServiceURL + 'ulist';
 
 
     $.ajax({
@@ -16,10 +16,10 @@ function getTenantUserItems() {
         dataType: 'jsonp',
         jsonpCallback: 'processData',
         success: function (data) {
-           
+
             $("#tenant-user-ul").empty();
             $.each(data, function (index, item) {
-                $("#tenant-user-ul").append('<li tenantName="' + item.tenantName + ' tenantName="'+item.id+'"></li>');
+                $("#tenant-user-ul").append('<li tenantName="' + item.tenantName + ' tenantName="' + item.id + '"></li>');
             });
 
             loadTenantUserCustomObjs($("#userId").val())
@@ -50,7 +50,7 @@ function getTenantUserItems() {
 function loadTenantUserCustomObjs(userid) {
 
     $("#CustObjects").empty();
-    var userUrl = MTAServiceURL+'u?uid=' + $("#userId").val();
+    var userUrl = MTAServiceURL + 'u?uid=' + $("#userId").val();
 
     $.when(jQuery.ajax({
         type: "GET",
@@ -81,7 +81,7 @@ function loadTenantUserCustomObjs(userid) {
             }
         }
     })).done(function (a1) {
-        var olistUrl = MTAServiceURL+'comdlist?tid=' + $("#tenantId").val();
+        var olistUrl = MTAServiceURL + 'comdlist?tid=' + $("#tenantId").val();
         var handleCo = function () {
             jQuery.ajax({
                 type: "GET",
@@ -124,13 +124,36 @@ function loadTenantUserCustomObjs(userid) {
 
 function handleMTAUIComponents() {
 
+    changeMTAUIState("init", "setting");
+
     handleMTAGrid();
 
 
 }
 
+function changeMTAUIState(orgState, newState) {
+    $(".demo .MTA-UI[state='" + orgState + "']").each(function () {
+        $(this).attr("state", newState);
+    });
+}
+
+function restoreMTAUIComponents() {
+    restoreMTAGrid();
+
+}
+
+
+function restoreMTAGrid() {
+
+    $(".demo .MTA-GRID[state='done']").each(function () {
+
+    });
+
+
+}
+
 function handleMTAGrid() {
-    $(".MTA-GRID[state='init']").each(function () {
+    $(".demo .MTA-GRID[state='setting']").each(function () {
         $(this).find(".mta-userinfo").text($("#hTenant").text());
         var mtagridtag = $(this).find("mta-grid");
 
@@ -138,6 +161,7 @@ function handleMTAGrid() {
         $(mtagridtag).attr("tenantid", $("#tenantId").val())
 
         setObjectSelectItem(this);
+
 
     });
 
@@ -173,12 +197,15 @@ function setObjectSelectItem(mtagrid) {
         if ($(this).val() == -1) {
             $(gridster).hide();
             $(mtauishow).show();
+            $(mtagrid).attr("state","setting");
         } else {
 
             $(gridster).show();
             $(mtauishow).hide();
             $(mtaselectedobjid).val($(this).val());
             applyMTAObjColsSelect(mtagrid, gridster, $(mtaselectedobjid).val());
+            $(mtagrid).attr("state", "done");
+
         }
     });
 
@@ -235,16 +262,16 @@ var genColsOrderSettings = function (colsPositions) {
     });
 
     _.each(groupbyRow, function (item) {
-       var sortCol = _.sortBy(item,function(item){item.col});
-        _.each(sortCol,function(item){
-            var temp = item.data.replace(preContent,"")
-            temp= temp.replace(postContent,"").trim();
+        var sortCol = _.sortBy(item, function (item) { item.col });
+        _.each(sortCol, function (item) {
+            var temp = item.data.replace(preContent, "")
+            temp = temp.replace(postContent, "").trim();
             ColsOrderArr.push(temp);
         })
 
     });
 
-    return JSON.stringify(ColsOrderArr).replace(/"+/g,"'");
+    return JSON.stringify(ColsOrderArr).replace(/"+/g, "'");
 
 };
 
@@ -256,7 +283,7 @@ function serializeColsPositions(mtagrid, gridster) {
 
     $(mtagridtag).attr("cols", genColsOrderSettings(colsPositions))
 
-    $(mtagrid).find(".mta-cols-positions").val(JSON.stringify(colsPositions));
+    //$(mtagrid).find(".mta-cols-positions").val(JSON.stringify(colsPositions));
 }
 
 function createWidgetsbyMTAObjFields(mtaselectedobjid) {
@@ -276,3 +303,12 @@ function createWidgetsbyMTAObjFields(mtaselectedobjid) {
     return widgetArr;
 
 }
+
+
+function removeNoneSettingMTAUIComponents() {
+    $(".demo .MTA-UI[state='setting']").each(function () {
+        $(this).remove();
+    });
+}
+
+

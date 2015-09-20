@@ -45,7 +45,7 @@
     <script type="text/javascript" src="js/jquery.gridster.js"></script>
     <script src="js/encoder.js"></script>
     <script type="text/javascript" src="js/mta-ui.js"></script>
-    
+
 </head>
 <body style="min-height: 660px; cursor: auto;" class="edit">
     <form id="form1" runat="server">
@@ -113,7 +113,7 @@
                                     </button>
                                 </div>
                                 <div class="btn-group">
-                                     <div class="btn btn-success"  id="saveToMTA">
+                                    <div class="btn btn-success" id="saveToMTA">
                                         <i class="icon-retweet icon-white"></i>儲存版型至MTA Studio
                                     </div>
                                 </div>
@@ -1316,7 +1316,7 @@
 
                                     <div class="preview">MTA-Grid</div>
                                     <div class="view">
-                                        <div class="MTA-GRID" state="init">
+                                        <div class="MTA-GRID MTA-UI" state="init">
                                             <div class="mta-settings">
                                                 <span class="label label-success mta-type">MTA-GRID</span>
                                                 <span class="label mta-userinfo"></span>
@@ -1492,6 +1492,16 @@
                 <h3>保存</h3>
             </div>
             <div class="modal-body">保存成功</div>
+            <div class="modal-footer"><a class="btn" data-dismiss="modal">Close</a></div>
+        </div>
+
+        <div class="modal hide fade" role="dialog" id="saveMTAModal">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+
+                <h3>儲存版型</h3>
+            </div>
+            <div class="modal-body">儲存版型至MTA Studio 成功</div>
             <div class="modal-footer"><a class="btn" data-dismiss="modal">Close</a></div>
         </div>
 
