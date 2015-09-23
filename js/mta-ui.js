@@ -2,19 +2,22 @@
  * Created by fantasybz on 2015/5/19.
  */
 
-var MTAServiceURL = "http://192.168.1.103:8080/MTAServiceResful/";
+var MTAServiceURL = "http://192.168.1.111:8080/MTAServiceResful/";
 
 function getTenantUserItems() {
+
+    var deferred = $.Deferred();
 
     var userlistUrl = MTAServiceURL + 'ulist';
 
 
-    $.ajax({
+    $.ajaxq("MTAQueue", {
         type: "GET",
         url: userlistUrl,
         cache: false,
         dataType: 'jsonp',
         jsonpCallback: 'processData',
+        async: false,
         success: function (data) {
 
             $("#tenant-user-ul").empty();
@@ -22,7 +25,7 @@ function getTenantUserItems() {
                 $("#tenant-user-ul").append('<li tenantName="' + item.tenantName + ' tenantName="' + item.id + '"></li>');
             });
 
-            loadTenantUserCustomObjs($("#userId").val())
+            return deferred.promise();
 
 
         }, error: function (jqXHR, exception) {
@@ -44,6 +47,8 @@ function getTenantUserItems() {
         }
     });
 
+
+
 }
 
 
@@ -52,12 +57,13 @@ function loadTenantUserCustomObjs(userid) {
     $("#CustObjects").empty();
     var userUrl = MTAServiceURL + 'u?uid=' + $("#userId").val();
 
-    $.when(jQuery.ajax({
+    $.ajaxq("MTAQueue", {
         type: "GET",
         url: userUrl,
         cache: false,
         dataType: 'jsonp',
         jsonpCallback: 'processData',
+        async: false,
         success: function (data) {
             $("#tenantId").val(data.tenantId);
             $("#hTenant").text(data.tenantName);
@@ -80,45 +86,45 @@ function loadTenantUserCustomObjs(userid) {
                 alert('Uncaught Error.\n' + jqXHR.responseText);
             }
         }
-    })).done(function (a1) {
-        var olistUrl = MTAServiceURL + 'comdlist?tid=' + $("#tenantId").val();
-        var handleCo = function () {
-            jQuery.ajax({
-                type: "GET",
-                url: olistUrl,
-                dataType: 'jsonp',
-                jsonpCallback: 'processData',
-                success: function (data) {
-                    $.each(data, function (i, item) {
-                        if (item.name != "Product") {
-                            var hid = "<input type='hidden' id='" + item.id + "' name='" + item.name + "' value='" + JSON.stringify(item) + "' >";
-                            $("#CustObjects").append(hid);
+    });
 
-                        }
-                    });
-                },
-                error: function (jqXHR, exception) {
-                    if (jqXHR.status === 0) {
-                        alert('Not connect.\n Verify Network.');
-                    } else if (jqXHR.status == 404) {
-                        alert('Requested page not found. [404]');
-                    } else if (jqXHR.status == 500) {
-                        alert('Internal Server Error [500].');
-                    } else if (exception === 'parsererror') {
-                        alert('Requested JSON parse failed.');
-                    } else if (exception === 'timeout') {
-                        alert('Time out error.');
-                    } else if (exception === 'abort') {
-                        alert('Ajax request aborted.');
-                    } else {
-                        alert('Uncaught Error.\n' + jqXHR.responseText);
-                    }
+    var olistUrl = MTAServiceURL + 'comdlist?tid=' + $("#tenantId").val();
+
+    return $.ajaxq("MTAQueue", {
+        type: "GET",
+        url: olistUrl,
+        dataType: 'jsonp',
+        jsonpCallback: 'processData',
+        async: false,
+        success: function (data) {
+            $.each(data, function (i, item) {
+                if (item.name != "Product") {
+                    var hid = "<input type='hidden' id='" + item.id + "' name='" + item.name + "' value='" + JSON.stringify(item) + "' >";
+                    $("#CustObjects").append(hid);
+
                 }
             });
-            return false
-        };
-        handleCo();
-    })
+
+        },
+        error: function (jqXHR, exception) {
+            if (jqXHR.status === 0) {
+                alert('Not connect.\n Verify Network.');
+            } else if (jqXHR.status == 404) {
+                alert('Requested page not found. [404]');
+            } else if (jqXHR.status == 500) {
+                alert('Internal Server Error [500].');
+            } else if (exception === 'parsererror') {
+                alert('Requested JSON parse failed.');
+            } else if (exception === 'timeout') {
+                alert('Time out error.');
+            } else if (exception === 'abort') {
+                alert('Ajax request aborted.');
+            } else {
+                alert('Uncaught Error.\n' + jqXHR.responseText);
+            }
+        }
+    });
+
 }
 
 
@@ -144,8 +150,15 @@ function restoreMTAUIComponents() {
 
 
 function restoreMTAGrid() {
-
+    /// <summary>
+    /// 重新載入頁面時，重新設定MTA GRID 操作介面
+    /// </summary>
     $(".demo .MTA-GRID[state='done']").each(function () {
+        $(this).find(".mta-userinfo").text($("#hTenant").text());
+        var mtagridtag = $(this).find("mta-grid");
+
+        setObjectSelectItem(this, mtagridtag, true);
+
 
     });
 
@@ -160,30 +173,40 @@ function handleMTAGrid() {
         $(mtagridtag).attr("objectid", -1)
         $(mtagridtag).attr("tenantid", $("#tenantId").val())
 
-        setObjectSelectItem(this);
+        setObjectSelectItem(this, mtagridtag, false);
 
 
     });
 
 }
 
-function setObjectSelectItem(mtagrid) {
+function setObjectSelectItem(mtagrid, mtagridtag, isRestore) {
     var selectObect = $(mtagrid).find(".mta-object-select");
     var mtauishow = $(mtagrid).find(".mta-ui-show");
     var gridster = $(mtagrid).find(".gridster");
     var mtaselectedobjid = $(mtagrid).find(".mta-selected-objid");
-    var mtagridtag = $(mtagrid).find("mta-grid");
+
+    if (isRestore == false) {
+        $(selectObect).empty();
+        $(selectObect).append('<option value = "-1">請選擇</option>');
 
 
-    $(selectObect).empty();
-    $(selectObect).append('<option value = "-1">請選擇</option>');
+        $("#CustObjects input[type='hidden']").each(function () {
+
+            $(selectObect).append('<option value = "' + this.id + '">' + this.name + '</option>');
 
 
-    $("#CustObjects input[type='hidden']").each(function () {
+        });
 
-        $(selectObect).append('<option value = "' + this.id + '">' + this.name + '</option>');
+    } else {
 
-    });
+        $(selectObect).val($(mtagridtag).attr("objectid"));
+
+        var widgets = createWidgetsbyMTAObjFields($(mtaselectedobjid).val());
+
+        initGridsterZone(mtagrid, gridster, widgets.length);
+
+    }
 
 
     $(selectObect).on('change', function () {
@@ -197,7 +220,7 @@ function setObjectSelectItem(mtagrid) {
         if ($(this).val() == -1) {
             $(gridster).hide();
             $(mtauishow).show();
-            $(mtagrid).attr("state","setting");
+            $(mtagrid).attr("state", "setting");
         } else {
 
             $(gridster).show();
@@ -212,17 +235,16 @@ function setObjectSelectItem(mtagrid) {
 
 }
 
-function applyMTAObjColsSelect(mtagrid, mtacolseditzone, mtaselectedobjid) {
-
-    var gridster;
-
-    var widgets = createWidgetsbyMTAObjFields(mtaselectedobjid);
-
-
-    gridster = $(mtacolseditzone).find("ul").gridster({
+function initGridsterZone(mtagrid, mtacolseditzone, max_cols) {
+    /// <summary>
+    /// 初始化 GridsterZone
+    /// </summary>
+    /// <param name="mtagrid"></param>
+    /// <param name="mtacolseditzone"></param>
+    var gridster = $(mtacolseditzone).find("ul").gridster({
         widget_margins: [5, 5],
         widget_base_dimensions: [120, 120],
-        max_cols: widgets.length,
+        max_cols: max_cols,
         draggable: {
             handle: 'header',
             start: function (e, ui, $widget) {
@@ -241,6 +263,15 @@ function applyMTAObjColsSelect(mtagrid, mtacolseditzone, mtaselectedobjid) {
         }
     }).data('gridster');
 
+    return gridster;
+}
+
+function applyMTAObjColsSelect(mtagrid, mtacolseditzone, mtaselectedobjid) {
+
+
+    var widgets = createWidgetsbyMTAObjFields(mtaselectedobjid);
+
+    var gridster = initGridsterZone(mtagrid, mtacolseditzone, widgets.length);
 
     $.each(widgets, function (i, widget) {
         gridster.add_widget.apply(gridster, widget)

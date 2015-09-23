@@ -43,6 +43,7 @@
     <script type="text/javascript" src="js/underscore-min.js"></script>
     <script type="text/javascript" src="js/scripts.js"></script>
     <script type="text/javascript" src="js/jquery.gridster.js"></script>
+    <script type="text/javascript" src="js/ajaxq.js"></script>
     <script src="js/encoder.js"></script>
     <script type="text/javascript" src="js/mta-ui.js"></script>
 

@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="TenantsPageWebServiceSoap" contract="TenantsPageWS.TenantsPageWebServiceSoap" bindingType="basicHttpBinding" address="http://192.168.1.103/MTAUIStudio/webservice/TenantsPageWebService.asmx" bindingConfiguration="TenantsPageWebServiceSoap">
+    <endpoint name="TenantsPageWebServiceSoap" contract="TenantsPageWS.TenantsPageWebServiceSoap" bindingType="basicHttpBinding" address="http://192.168.1.111/MTAUIStudio/webservice/TenantsPageWebService.asmx" bindingConfiguration="TenantsPageWebServiceSoap">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://192.168.1.103/MTAUIStudio/webservice/TenantsPageWebService.asmx</serializedValue>
+          <serializedValue>http://192.168.1.111/MTAUIStudio/webservice/TenantsPageWebService.asmx</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
