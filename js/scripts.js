@@ -350,7 +350,7 @@ function downloadLayoutSrc() {
 
     $("#download-layout").html(formatSrc);
     $("#downloadModal textarea").empty();
-    $("#downloadModal textarea").val(prehtml+formatSrc+posthtml)
+    $("#downloadModal textarea").val(prehtml + formatSrc + posthtml)
 }
 
 function getPhysicalFileContent() {
@@ -421,10 +421,10 @@ function getPhysicalFileContent() {
     prehtml += '            <title></title>';
 
     prehtml += '        <!-- Le styles -->';
-    prehtml += '        <link href="../css/views/bootstrap-combined.min.css" rel="stylesheet">';
-    prehtml += '            <link href="../css/views/jquery-ui-1.10.3.custom.css" rel="stylesheet">';
-    prehtml += '                <link href="../assets/jqGrid/css/ui.jqgrid.css" rel="stylesheet">';
-    prehtml += '                    <link href="../css/views/view-mta.css" rel="stylesheet">';
+    prehtml += '        <link href="../../css/views/bootstrap-combined.min.css" rel="stylesheet">';
+    prehtml += '            <link href="../../css/views/jquery-ui-1.10.3.custom.css" rel="stylesheet">';
+    prehtml += '                <link href="../../assets/jqGrid/css/ui.jqgrid.css" rel="stylesheet">';
+    prehtml += '                    <link href="../../css/views/view-mta.css" rel="stylesheet">';
 
 
     prehtml += '                        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->';
@@ -435,23 +435,23 @@ function getPhysicalFileContent() {
     prehtml += '                        <!-- Fav and touch icons -->';
     prehtml += '                        <link rel="shortcut icon" href="img/favicon.png">';
 
-    prehtml += '                            <script src="../js/angular.min.js"></script>';
-    prehtml += '                            <script type="text/javascript" src="../js/views/jquery-2.0.0.min.js"></script>';
+    prehtml += '                            <script src="../../js/angular.min.js"></script>';
+    prehtml += '                            <script type="text/javascript" src="../../js/views/jquery-2.0.0.min.js"></script>';
     prehtml += '                            <!--[if lt IE 9]>';
     prehtml += '                            <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>';
     prehtml += '                            <![endif]-->';
-    prehtml += '                            <script type="text/javascript" src="../js/views/bootstrap.min.js"></script>';
-    prehtml += '                            <script type="text/javascript" src="../js/views/jquery-ui.js"></script>';
-    prehtml += '                            <script type="text/javascript" src="../js/views/jquery.ui.touch-punch.min.js"></script>';
-    prehtml += '                            <script type="text/javascript" src="../js/views/jquery.htmlClean.js"></script>';
-    prehtml += '                            <script src="../assets/jqGrid/js/i18n/grid.locale-en.js"></script>';
-    prehtml += '                            <script src="../assets/jqGrid/js/jquery.jqGrid.min.js"></script>';
-    prehtml += '                            <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>';
-    prehtml += '                            <script type="text/javascript" src="../ckeditor/config.js"></script>';
-    prehtml += '                            <script src="../js/underscore.js"></script>';
-    prehtml += '                            <script src="../js/encoder.js"></script>';
-    prehtml += '                            <script src="../js/ajaxq.js"></script>';
-    prehtml += '                            <script src="../js/mta-ui-grid.js"></script>';
+    prehtml += '                            <script type="text/javascript" src="../../js/views/bootstrap.min.js"></script>';
+    prehtml += '                            <script type="text/javascript" src="../../js/views/jquery-ui.js"></script>';
+    prehtml += '                            <script type="text/javascript" src="../../js/views/jquery.ui.touch-punch.min.js"></script>';
+    prehtml += '                            <script type="text/javascript" src="../../js/views/jquery.htmlClean.js"></script>';
+    prehtml += '                            <script src="../../assets/jqGrid/js/i18n/grid.locale-en.js"></script>';
+    prehtml += '                            <script src="../../assets/jqGrid/js/jquery.jqGrid.min.js"></script>';
+    prehtml += '                            <script type="text/javascript" src="../../ckeditor/ckeditor.js"></script>';
+    prehtml += '                            <script type="text/javascript" src="../../ckeditor/config.js"></script>';
+    prehtml += '                            <script src="../../js/underscore.js"></script>';
+    prehtml += '                            <script src="../../js/encoder.js"></script>';
+    prehtml += '                            <script src="../../js/ajaxq.js"></script>';
+    prehtml += '                            <script src="../../js/mta-ui-grid.js"></script>';
 
     prehtml += '                        </head>';
     prehtml += '                        <body ng-app="MTAUIDirective">';
@@ -461,7 +461,7 @@ function getPhysicalFileContent() {
 
     var posthtml = "</div></body></html>";
 
-    return prehtml+formatSrc+posthtml
+    return prehtml + formatSrc + posthtml
 }
 
 
@@ -477,15 +477,16 @@ $(window).resize(function () {
 });
 
 
-function restoreDataFromMTAStudio(){
-    clearDemo();
-    if (supportstorage()) {
-        layouthistory = JSON.parse(localStorage.getItem("layoutdata"));
-        if (!layouthistory) return false;
-        window.demoHtml = layouthistory.list[layouthistory.count - 1];
-        if (window.demoHtml) $(".demo").html($("#pageContent").val());
+function restoreDataFromMTAStudio() {
 
-    }
+    clearDemo();
+
+    $(".demo").html($("#layoutitConent").val());
+
+    initContainer();
+
+    restoreMTAUIComponents();
+
 }
 
 function restoreData() {
@@ -515,12 +516,12 @@ function initContainer() {
 }
 $(document).ready(function () {
 
-    <!--MTA UI-->
     getTenantUserItems();
 
-   
-    <!--MTA UI-->
-
+    $.when(loadTenantUserCustomObjs($("#userId").val()))
+    .done(function () {
+        restoreDataFromMTAStudio()
+    });
 
     CKEDITOR.disableAutoInline = true;
     //restoreData();
@@ -577,6 +578,9 @@ $(document).ready(function () {
             startdrag = 0;
         }
     });
+
+
+
     initContainer();
     $('body.edit .demo').on("click", "[data-target=#editorModal]", function (e) {
         e.preventDefault();
@@ -657,32 +661,48 @@ $(document).ready(function () {
         if (redoLayout()) initContainer();
         stopsave--;
     });
-    $('#saveToMTA').click(function(){
+    $('#saveToMTA').click(function () {
 
-        var param ={
-            pageId: $("#userId").val(),
-            fileContent : Encoder.htmlDecode(getPhysicalFileContent()),
-            layoutitContent :Encoder.htmlDecode($(".demo").html())
+        removeNoneSettingMTAUIComponents();
+
+        var param = {
+            pageId: $("#pageId").val(),
+            fileContent: Encoder.htmlDecode(getPhysicalFileContent()),
+            layoutitContent: Encoder.htmlDecode(window.demoHtml)
         };
 
         $.ajax({
             crossDomain: true,
+            type: 'POST',
             contentType: "application/json; charset=utf-8",
-            url: "http://192.168.1.109/MTAUIStudio/webservice/TenantsPageWebService.asmx/updateTenantsPageFileContentRemote",
+            url: "http://192.168.1.111/MTAUIStudio/webservice/TenantsPageWebService.asmx/updateTenantsPageFileContent",
             data: JSON.stringify(param),
-            dataType: "jsonp",
-            success: onDataReceived
+            dataType: "json",
+            success: onDataReceived,
+            error: function (jqXHR, exception) {
+                if (jqXHR.status === 0) {
+                    alert('Not connect.\n Verify Network.');
+                } else if (jqXHR.status == 404) {
+                    alert('Requested page not found. [404]');
+                } else if (jqXHR.status == 500) {
+                    alert('Internal Server Error [500].');
+                } else if (exception === 'parsererror') {
+                    alert('Requested JSON parse failed.');
+                } else if (exception === 'timeout') {
+                    alert('Time out error.');
+                } else if (exception === 'abort') {
+                    alert('Ajax request aborted.');
+                } else {
+                    alert('Uncaught Error.\n' + jqXHR.responseText);
+                }
+            }
         });
 
-       
+
     });
 
-    function onDataReceived(data)
-    {
-        alert("Data received");
-        // Do your client side work here.
-        // 'data' is an object containing the data sent from the web service 
-        // Put a JS breakpoint on this line to explore the data object
+    function onDataReceived(data) {
+        $('#saveMTAModal').modal('show')
     }
 
     removeElm();
@@ -690,4 +710,7 @@ $(document).ready(function () {
     setInterval(function () {
         handleSaveLayout()
     }, timerSave)
+
+
+
 })
