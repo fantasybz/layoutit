@@ -20,6 +20,7 @@
     <link href="css/ui.jqgrid.css" rel="stylesheet">
     <link href="css/jquery.gridster.css" rel="stylesheet">
     <link href="css/mta-gridster-cols.css" rel="stylesheet">
+    <link href="css/bootstrap-datepicker.standalone.min.css" rel="stylesheet" />
 
     <!-- HTML5 shim, fo\
     r IE6-8 support of HTML5 elements -->
@@ -35,6 +36,8 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <![endif]-->
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-datepicker.zh-TW.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.js"></script>
     <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
     <script type="text/javascript" src="js/jquery.htmlClean.js"></script>
@@ -44,7 +47,7 @@
     <script type="text/javascript" src="js/scripts.js"></script>
     <script type="text/javascript" src="js/jquery.gridster.js"></script>
     <script type="text/javascript" src="js/ajaxq.js"></script>
-    <script src="js/encoder.js"></script>
+    <script type="text/javascript" src="js/encoder.js"></script>
     <script type="text/javascript" src="js/mta-ui.js"></script>
 
 </head>
@@ -1375,11 +1378,85 @@
                                 </div>
                                 <div class="box box-element ui-draggable">
 
-                                    <div class="preview">MTA-Form</div>
+                                    <div class="preview">MTA-Editor</div>
                                     <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>刪除</a>
                                     <span class="drag label"><i class="icon-move"></i>拖動</span>
 
                                     <div class="view">
+                                        <div class="MTA-EDITOR MTA-UI" state="init">
+
+                                            <div class="mta-settings">
+                                                <span class="label label-success mta-type">MTA-EDITOR</span>
+                                                <span class="label mta-userinfo"></span>
+                                                <span class="label">請選擇Domain Object:</span>
+                                                <select class="form-control mta-object-select"></select>
+                                                <input type="hidden" class="mta-selected-objid" value="">
+                                            </div>
+                                            <div class="mta-ui-show">
+                                                <form class="form-horizontal">
+                                                    <fieldset>
+                                                        <div class="component">
+                                                            <!-- Form Name -->
+                                                            <legend>MTA Form Builder</legend>
+                                                        </div>
+                                                        <!-- Text input-->
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="textinput-0">Text Input</label>
+                                                            <div class="controls">
+                                                                <input id="textinput-0" name="textinput-0" type="text" placeholder="placeholder" class="input-xlarge">
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Text input-->
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="textinput-1">Text Input</label>
+                                                            <div class="controls">
+                                                                <input id="textinput-1" name="textinput-1" type="text" placeholder="placeholder" class="input-xlarge">
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Select Basic -->
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="selectbasic-0">Select Basic</label>
+                                                            <div class="controls">
+                                                                <select id="selectbasic-0" name="selectbasic-0" class="input-xlarge">
+                                                                    <option>Option one</option>
+                                                                    <option>Option two</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Textarea -->
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="textarea-0">Text Area</label>
+                                                            <div class="controls">
+                                                                <textarea id="textarea-0" name="textarea-0">default text</textarea>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Button -->
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="singlebutton-0">Single Button</label>
+                                                            <div class="controls">
+                                                                <button id="singlebutton-0" name="singlebutton-0" class="btn btn-primary" disabled>Button</button>
+                                                            </div>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
+                                            <div class="mta-form-builder">
+                                                <form class="form-horizontal">
+                                                    <fieldset>
+                                                        <div class="component">
+                                                            <!-- Form Name -->
+                                                            <legend>Form Name</legend>
+                                                        </div>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
+                                            <div class="mta-ui-code">
+                                                <mta-editor objectid='' cols='' tenantid='1'></mta-editor>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </li>
@@ -1516,6 +1593,71 @@
 
 
         <div id="CustObjects"></div>
+
+        <div id="mta-form-builder-control" style="visibility: hidden;">
+
+            <div class="component mta-textlabel-group">
+                <!-- Text Label-->
+                <div class="control-group">
+                    <span class="mta-field-info badge badge-info"></span>
+                    <label class="control-label" for="">Text Label</label>
+                    <div class="controls">
+                              <p id="" class="mta-textlabel form-control-static">MTA Text Label</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component mta-textinput-group">
+                <!-- Text input-->
+                <div class="control-group">
+                    <span class="mta-field-info badge badge-info"></span>
+                    <label class="control-label" for="">Text Input</label>
+                    <div class="controls">
+                        <input id="" name="" class="mta-textinput input-xlarge" type="text" placeholder="placeholder">
+                    </div>
+                </div>
+            </div>
+
+            <div class="component mta-dateinput-group">
+                <!-- Date input-->
+                <div class="control-group">
+                    <span class="mta-field-info badge badge-info"></span>
+                    <label class="control-label" for="">Text Input</label>
+
+                    <div class="controls date">
+                        <input type="text" placeholder="placeholder" class="input-xlarge mta-dateinput">
+                        <span class="add-on"><i class="icon-th"></i></span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="component mta-textarea-group">
+                <!-- Textarea -->
+                <div class="control-group">
+                    <span class="mta-field-info badge badge-info"></span>
+                    <label class="control-label" for="">Text Area</label>
+                    <div class="controls">
+                        <textarea id="" name="" class="mta-textarea">default text</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component mta-selectbasic-group">
+                <!-- Select Basic -->
+                <div class="control-group">
+                    <span class="mta-field-info badge badge-info"></span>
+                    <label class="control-label" for="">Select Basic</label>
+                    <div class="controls">
+                        <select id="" name="" class="input-xlarge mta-selectbasic">
+                            <option>Option one</option>
+                            <option>Option two</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 
 
