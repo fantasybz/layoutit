@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="5F4fchrPN8/GgodhK5bI8nJpvxo=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="qu26FcgaOJWrtJtrjRQNIVq+QH4=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="TenantsPageWebServiceSoap">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="TenantsPageWebServiceSoap" contract="TenantsPageWS.TenantsPageWebServiceSoap" bindingType="basicHttpBinding" address="http://192.168.1.111/MTAUIStudio/webservice/TenantsPageWebService.asmx" bindingConfiguration="TenantsPageWebServiceSoap">
+    <endpoint name="TenantsPageWebServiceSoap" contract="TenantsPageWS.TenantsPageWebServiceSoap" bindingType="basicHttpBinding" address="http://192.168.1.106/MTAUIStudio/webservice/TenantsPageWebService.asmx" bindingConfiguration="TenantsPageWebServiceSoap">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://192.168.1.111/MTAUIStudio/webservice/TenantsPageWebService.asmx</serializedValue>
+          <serializedValue>http://192.168.1.106/MTAUIStudio/webservice/TenantsPageWebService.asmx</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

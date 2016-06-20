@@ -2,7 +2,7 @@
  * Created by fantasybz on 2015/5/19.
  */
 
-var MTAServiceURL = "http://192.168.1.111:8080/MTAServiceResful/";
+var MTAServiceURL = "http://192.168.1.106:8080/MTAServiceResful/";
 
 function getTenantUserItems() {
 

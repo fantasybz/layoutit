@@ -156,10 +156,10 @@
   </wsdl:binding>
   <wsdl:service name="TenantsPageWebService">
     <wsdl:port name="TenantsPageWebServiceSoap" binding="tns:TenantsPageWebServiceSoap">
-      <soap:address location="http://192.168.1.111/MTAUIStudio/webservice/TenantsPageWebService.asmx" />
+      <soap:address location="http://192.168.1.106/MTAUIStudio/webservice/TenantsPageWebService.asmx" />
     </wsdl:port>
     <wsdl:port name="TenantsPageWebServiceSoap12" binding="tns:TenantsPageWebServiceSoap12">
-      <soap12:address location="http://192.168.1.111/MTAUIStudio/webservice/TenantsPageWebService.asmx" />
+      <soap12:address location="http://192.168.1.106/MTAUIStudio/webservice/TenantsPageWebService.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

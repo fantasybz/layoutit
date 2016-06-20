@@ -675,7 +675,7 @@ $(document).ready(function () {
             crossDomain: true,
             type: 'POST',
             contentType: "application/json; charset=utf-8",
-            url: "http://192.168.1.111/MTAUIStudio/webservice/TenantsPageWebService.asmx/updateTenantsPageFileContent",
+            url: "http://192.168.1.106/MTAUIStudio/webservice/TenantsPageWebService.asmx/updateTenantsPageFileContent",
             data: JSON.stringify(param),
             dataType: "json",
             success: onDataReceived,
