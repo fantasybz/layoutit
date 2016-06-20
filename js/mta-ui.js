@@ -2,7 +2,7 @@
  * Created by fantasybz on 2015/5/19.
  */
 
-var MTAServiceURL = "http://192.168.1.111:8080/MTAServiceResful/";
+var MTAServiceURL = "http://192.168.1.103:8080/MTAServiceResful/";
 
 function getTenantUserItems() {
 
@@ -127,12 +127,35 @@ function loadTenantUserCustomObjs(userid) {
 
 }
 
+function getTenantUserDetailCustomObj(objid) {
+    var relUrl = MTAServiceURL + 'cr?tid=' + $("#tenantId").val() + "&cid=" + objid;
+    var custObj = null;
+    return $.ajaxq("MTAQueue", {
+        type: "GET",
+        url: relUrl,
+        cache: false,
+        dataType: 'jsonp',
+        jsonpCallback: 'processData',
+        success: function (data) {
+            custObj = data;
+        },
+        error: function (jqXHR, exception) {
+        }
+    }).done(function (data) {
+        return custObj;
+    });
+
+}
+
+
+
 
 function handleMTAUIComponents() {
 
     changeMTAUIState("init", "setting");
 
     handleMTAGrid();
+    handleMTAEditor();
 
 
 }
@@ -157,7 +180,7 @@ function restoreMTAGrid() {
         $(this).find(".mta-userinfo").text($("#hTenant").text());
         var mtagridtag = $(this).find("mta-grid");
 
-        setObjectSelectItem(this, mtagridtag, true);
+        setMtaGridObjSelectItem(this, mtagridtag, true);
 
 
     });
@@ -170,34 +193,214 @@ function handleMTAGrid() {
         $(this).find(".mta-userinfo").text($("#hTenant").text());
         var mtagridtag = $(this).find("mta-grid");
 
-        $(mtagridtag).attr("objectid", -1)
-        $(mtagridtag).attr("tenantid", $("#tenantId").val())
+        $(mtagridtag).attr("objectid", -1);
+        $(mtagridtag).attr("tenantid", $("#tenantId").val());
 
-        setObjectSelectItem(this, mtagridtag, false);
+        setMtaGridObjSelectItem(this, mtagridtag, false);
 
 
     });
 
 }
 
-function setObjectSelectItem(mtagrid, mtagridtag, isRestore) {
+function handleMTAEditor() {
+    $(".demo .MTA-EDITOR[state='setting']").each(function () {
+        $(this).find(".mta-userinfo").text($("#hTenant").text());
+        var mtaeditortag = $(this).find("mta-editor");
+
+        $(mtaeditortag).attr("objectid", -1)
+        $(mtaeditortag).attr("tenantid", $("#tenantId").val());
+
+        setMtaEditorObjSelectItem(this, mtaeditortag, false);
+    });
+}
+
+function initMtaSelectItem(selectObect) {
+    $(selectObect).empty();
+    $(selectObect).append('<option value = "-1">請選擇</option>');
+
+
+    $("#CustObjects input[type='hidden']").each(function () {
+
+        $(selectObect).append('<option value = "' + this.id + '">' + this.name + '</option>');
+
+
+    });
+}
+
+function setMtaEditorObjSelectItem(mtaeditor, mtaeditortag, isRestore) {
+    var selectObect = $(mtaeditor).find(".mta-object-select");
+    var mtauishow = $(mtaeditor).find(".mta-ui-show");
+    var mtaformbuilder = $(mtaeditor).find(".mta-form-builder");
+    var mtaselectedobjid = $(mtaeditor).find(".mta-selected-objid");
+
+    $(mtaformbuilder).hide();
+
+    if (isRestore == false) {
+
+        initMtaSelectItem(selectObect)
+    } else {
+
+    }
+
+
+
+    $(selectObect).on('change', function () {
+
+
+        $(mtaeditortag).attr("objectid", $(this).val());
+
+        $(mtaformbuilder).find("fieldset .component:gt(0)").remove();
+
+        if ($(this).val() == -1) {
+            $(mtaformbuilder).hide();
+            $(mtauishow).show();
+            $(mtaeditor).attr("state", "setting");
+        } else {
+
+            $(mtaformbuilder).show();
+            $(mtauishow).hide();
+            $(mtaselectedobjid).val($(this).val());
+
+            createFormBuilderFromMTAObject(mtaformbuilder, $(mtaselectedobjid).val());
+
+
+            $(mtaeditor).attr("state", "done");
+
+        }
+    });
+
+
+}
+
+function createFormBuilderFromMTAObject(mtaFormBuilder, mtaObjID) {
+
+    var fieldsetZone = $(mtaFormBuilder).find("fieldset");
+   
+    $.when(getTenantUserDetailCustomObj(mtaObjID))
+        .done(function (objmeta) {
+            $.each(objmeta.customFields, function (index, item) {
+
+                addMtaFormItemByCustomField(fieldsetZone, item, objmeta.customRelationships, objmeta.pkCustomField)
+
+            })
+        });
+
+
+
+}
+
+function addMtaFormItemByCustomField(fieldsetZone, fieldItem, relationships, pkField) {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="fieldsetZone"></param>
+    /// <param name="fieldItem"></param>
+    /// <param name="relationships"></param>
+    /// <param name="pkField"></param>
+   
+
+    if (fieldItem.type.value == 5) {
+        //var ary = item.name.split("_");
+        //if (ary[0] != $("#coName").val()) {
+        //relAry[relAry.length] = item.id;
+        ////console.log(ary[0])
+        //appendStr += "<tr><td><label name=\"fieldName\">" + ary[0] + "</label></td>";
+        //appendStr += "<td>&nbsp;<select name='selCr'></select>";
+        //appendStr += "<input type='hidden' id='cfType' name='cfType' value='" + item.type.value + "'>";
+        //if (arg != 0) appendStr += "<button name='btnViewRel' class='btn'>View</button>";
+        ////console.log("Val" + value);
+        //appendStr += "<input type='hidden' name='cfValue' value='" + value + "'>";
+        //appendStr += "<input type='hidden' name='relObjId' value=''>";
+        //appendStr += "<input type='hidden' id='cfId' name='cfId' value='" + item.id + "'></td></tr>";
+        //} else {
+        //if (arg != 0) {
+        //    appendStr += "<tr><td><label name=\"fieldName\">" + ary[1] + "</label></td>";
+        //    appendStr += "<td>";
+        //    appendStr += "<button name='btnViewRel' class='btn'>View</button>";
+        //    appendStr += "<input type='hidden' name='relObjId' value='" + $("#coId").val() + "'>";
+        //    appendStr += "<input type='hidden' name='fieldValue' value='" + value + "'>";
+        //    appendStr += "<input type='hidden' id='cfId' name='cfId' value='" + item.id + "'></td></tr>";
+        //}
+        //}
+
+    } else {
+        if (fieldItem.indexType.value == 1) {
+
+            var textinputgroup = $("#mta-form-builder-control .mta-textinput-group").clone()
+
+            setMTAFormControlBind(textinputgroup, ".mta-textinput", fieldItem);
+
+            $(fieldsetZone).append(textinputgroup);
+
+        } else if (fieldItem.type.value == 2) {
+
+            var dateinputgroup = $("#mta-form-builder-control .mta-dateinput-group").clone()
+
+            setMTAFormControlBind(dateinputgroup, ".mta-mta-dateinput", fieldItem);
+
+            $(fieldsetZone).append(dateinputgroup);
+
+            $(dateinputgroup).children(".date").datepicker({
+                format: "yyyy/mm/dd",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                todayHighlight: true
+            });
+
+        } else if (fieldItem.type.value == 6) {
+
+            var texttextareagroup = $("#mta-form-builder-control .mta-textarea-group").clone()
+
+            setMTAFormControlBind(texttextareagroup, ".mta-textarea", fieldItem);
+
+            $(fieldsetZone).append(texttextareagroup);
+
+        } else {
+            var textinputgroup = $("#mta-form-builder-control .mta-textinput-group").clone()
+
+            setMTAFormControlBind(textinputgroup, ".mta-textinput", fieldItem);
+
+            $(fieldsetZone).append(textinputgroup);
+        }
+    }
+
+
+    
+
+}
+
+
+function setMTAFormControlBind(targetControl, controlClass, mtaField) {
+    var ctlIndex = $(".demo " + controlClass).length + 1;
+    var ctlId = controlClass + "-" + ctlIndex;
+
+    $(targetControl).find(controlClass).attr("id", ctlId);
+    $(targetControl).find(".control-label").attr("for", ctlId);
+    $(targetControl).find(".control-label").html(mtaField.name);
+    $(targetControl).find(".mta-field-info").html(mtaField.name);
+
+
+}
+
+
+function setMtaGridObjSelectItem(mtagrid, mtagridtag, isRestore) {
+    /// <summary>
+    ///  設定MTA GRID 繫結MTA Object 行為
+    /// </summary>
+    /// <param name="mtagrid"></param>
+    /// <param name="mtagridtag"></param>
+    /// <param name="isRestore">是否為重新載入狀態</param>
+
     var selectObect = $(mtagrid).find(".mta-object-select");
     var mtauishow = $(mtagrid).find(".mta-ui-show");
     var gridster = $(mtagrid).find(".gridster");
     var mtaselectedobjid = $(mtagrid).find(".mta-selected-objid");
 
     if (isRestore == false) {
-        $(selectObect).empty();
-        $(selectObect).append('<option value = "-1">請選擇</option>');
 
-
-        $("#CustObjects input[type='hidden']").each(function () {
-
-            $(selectObect).append('<option value = "' + this.id + '">' + this.name + '</option>');
-
-
-        });
-
+        initMtaSelectItem(selectObect)
     } else {
 
         $(selectObect).val($(mtagridtag).attr("objectid"));
