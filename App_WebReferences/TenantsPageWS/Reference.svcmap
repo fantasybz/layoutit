@@ -18,11 +18,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://192.168.1.106/MTAUIStudio/webservice/TenantsPageWebService.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://192.168.1.111/MTAUIStudio/webservice/TenantsPageWebService.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="TenantsPageWebService.wsdl" MetadataType="Wsdl" ID="1894b459-e27e-4307-8878-74ea9a973baf" SourceId="1" SourceUrl="http://192.168.1.106/MTAUIStudio/webservice/TenantsPageWebService.asmx?wsdl" />
-    <MetadataFile FileName="TenantsPageWebService.disco" MetadataType="Disco" ID="0b2ec9e2-bcb4-4edf-b034-6f73f71dcb9d" SourceId="1" SourceUrl="http://192.168.1.106/MTAUIStudio/webservice/TenantsPageWebService.asmx?disco" />
+    <MetadataFile FileName="TenantsPageWebService.disco" MetadataType="Disco" ID="0b2ec9e2-bcb4-4edf-b034-6f73f71dcb9d" SourceId="1" SourceUrl="http://192.168.1.111/MTAUIStudio/webservice/TenantsPageWebService.asmx?disco" />
+    <MetadataFile FileName="TenantsPageWebService.wsdl" MetadataType="Wsdl" ID="1894b459-e27e-4307-8878-74ea9a973baf" SourceId="1" SourceUrl="http://192.168.1.111/MTAUIStudio/webservice/TenantsPageWebService.asmx?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
